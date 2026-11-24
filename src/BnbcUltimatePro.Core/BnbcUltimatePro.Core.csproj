@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>BnbcUltimatePro.Core</AssemblyName>
+    <RootNamespace>BnbcUltimatePro.Core</RootNamespace>
+    <Version>2.0.0</Version>
+    <Company>BNBC Engineering Solutions</Company>
+    <Product>BNBC ULTIMATE PRO</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\bnbc2020_database.json" />
+    <EmbeddedResource Include="Data\bnbc2020_database.json" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,73 @@
+{
+  "projectName": "Barishal Commercial-Residential Complex (G+6)",
+  "projectNumber": "BNBC-BAR-2026-07",
+  "engineerName": "Civil & Structural Design Unit",
+  "district": "Barishal",
+  "geotechnicalSiteClass": "SD",
+  "geotechnicalReportRef": "GEO-BAR-2026-BH04 (SPT N60 = 11)",
+  "occupancyCategory": "II",
+  "structuralSystemCode": "IMRF_RC",
+  "windExposure": "A",
+  "buildingHeightMeters": 21.0,
+  "planDimensionXMeters": 18.0,
+  "planDimensionYMeters": 15.0,
+  "stories": [
+    {
+      "storyName": "Story 1",
+      "heightMeters": 3.0,
+      "elevationMeters": 3.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 2.0,
+      "seismicWeightKn": 2450.0
+    },
+    {
+      "storyName": "Story 2",
+      "heightMeters": 3.0,
+      "elevationMeters": 6.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 2.0,
+      "seismicWeightKn": 2450.0
+    },
+    {
+      "storyName": "Story 3",
+      "heightMeters": 3.0,
+      "elevationMeters": 9.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 2.0,
+      "seismicWeightKn": 2450.0
+    },
+    {
+      "storyName": "Story 4",
+      "heightMeters": 3.0,
+      "elevationMeters": 12.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 2.0,
+      "seismicWeightKn": 2450.0
+    },
+    {
+      "storyName": "Story 5",
+      "heightMeters": 3.0,
+      "elevationMeters": 15.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 2.0,
+      "seismicWeightKn": 2450.0
+    },
+    {
+      "storyName": "Story 6",
+      "heightMeters": 3.0,
+      "elevationMeters": 18.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 2.0,
+      "seismicWeightKn": 2450.0
+    },
+    {
+      "storyName": "Roof",
+      "heightMeters": 3.0,
+      "elevationMeters": 21.0,
+      "floorAreaSqM": 270.0,
+      "assignedLiveLoadKnM2": 1.5,
+      "seismicWeightKn": 1850.0,
+      "isRoof": true
+    }
+  ]
+}

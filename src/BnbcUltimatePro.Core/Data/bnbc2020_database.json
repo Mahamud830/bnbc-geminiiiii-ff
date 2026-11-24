@@ -1,0 +1,785 @@
+{
+  "codeReference": "Bangladesh National Building Code (BNBC 2020), Part 6 - Structural Design",
+  "version": "2.0.0",
+  "disclaimer": "All coefficients strictly reflect verified BNBC 2020 Part 6 provisions across all 64 districts of Bangladesh. Geotechnical soil site class (SA, SB, SC, SD, SE, S1, S2) MUST be supplied from a site-specific geotechnical investigation report and is never inferred from district.",
+  "seismicZones": [
+    {
+      "zone": 1,
+      "description": "Low Seismic Intensity",
+      "Z": 0.12,
+      "clause": "BNBC 2020 Part 6, Table 6.2.15"
+    },
+    {
+      "zone": 2,
+      "description": "Moderate Seismic Intensity",
+      "Z": 0.2,
+      "clause": "BNBC 2020 Part 6, Table 6.2.15"
+    },
+    {
+      "zone": 3,
+      "description": "Severe Seismic Intensity",
+      "Z": 0.28,
+      "clause": "BNBC 2020 Part 6, Table 6.2.15"
+    },
+    {
+      "zone": 4,
+      "description": "Very Severe Seismic Intensity",
+      "Z": 0.36,
+      "clause": "BNBC 2020 Part 6, Table 6.2.15"
+    }
+  ],
+  "districtZones": [
+    {
+      "district": "Barguna",
+      "division": "Barishal",
+      "zone": 1,
+      "windSpeedMs": 78.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Barishal",
+      "division": "Barishal",
+      "zone": 1,
+      "windSpeedMs": 78.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Bhola",
+      "division": "Barishal",
+      "zone": 1,
+      "windSpeedMs": 69.5,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Jhalokati",
+      "division": "Barishal",
+      "zone": 1,
+      "windSpeedMs": 80.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Patuakhali",
+      "division": "Barishal",
+      "zone": 1,
+      "windSpeedMs": 78.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Pirojpur",
+      "division": "Barishal",
+      "zone": 1,
+      "windSpeedMs": 80.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Bandarban",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 62.5,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Brahmanbaria",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 56.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Chandpur",
+      "division": "Chattogram",
+      "zone": 2,
+      "windSpeedMs": 50.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Chattogram",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 80.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Cox's Bazar",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 80.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Cumilla",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 61.4,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Feni",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 64.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Khagrachhari",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 56.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Lakshmipur",
+      "division": "Chattogram",
+      "zone": 2,
+      "windSpeedMs": 51.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Noakhali",
+      "division": "Chattogram",
+      "zone": 2,
+      "windSpeedMs": 57.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Rangamati",
+      "division": "Chattogram",
+      "zone": 3,
+      "windSpeedMs": 56.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Dhaka",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 65.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Faridpur",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 53.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Gazipur",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 66.5,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Gopalganj",
+      "division": "Dhaka",
+      "zone": 1,
+      "windSpeedMs": 74.5,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Kishoreganj",
+      "division": "Dhaka",
+      "zone": 4,
+      "windSpeedMs": 64.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Madaripur",
+      "division": "Dhaka",
+      "zone": 1,
+      "windSpeedMs": 68.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Manikganj",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 58.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Munshiganj",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 57.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Narayanganj",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 61.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Narsingdi",
+      "division": "Dhaka",
+      "zone": 3,
+      "windSpeedMs": 59.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Rajbari",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 48.8,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Shariatpur",
+      "division": "Dhaka",
+      "zone": 2,
+      "windSpeedMs": 61.9,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Tangail",
+      "division": "Dhaka",
+      "zone": 3,
+      "windSpeedMs": 50.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Bagerhat",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 77.5,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Chuadanga",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 61.9,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Jashore",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 64.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Jhenaidah",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 65.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Khulna",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 73.3,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Kushtia",
+      "division": "Khulna",
+      "zone": 2,
+      "windSpeedMs": 66.9,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Magura",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 65.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Meherpur",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 58.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Narail",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 68.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Satkhira",
+      "division": "Khulna",
+      "zone": 1,
+      "windSpeedMs": 57.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Jamalpur",
+      "division": "Mymensingh",
+      "zone": 3,
+      "windSpeedMs": 56.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Mymensingh",
+      "division": "Mymensingh",
+      "zone": 4,
+      "windSpeedMs": 67.4,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Netrokona",
+      "division": "Mymensingh",
+      "zone": 4,
+      "windSpeedMs": 65.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Sherpur",
+      "division": "Mymensingh",
+      "zone": 4,
+      "windSpeedMs": 62.5,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Bogura",
+      "division": "Rajshahi",
+      "zone": 3,
+      "windSpeedMs": 61.9,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Chapainawabganj",
+      "division": "Rajshahi",
+      "zone": 2,
+      "windSpeedMs": 41.4,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Joypurhat",
+      "division": "Rajshahi",
+      "zone": 3,
+      "windSpeedMs": 56.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Naogaon",
+      "division": "Rajshahi",
+      "zone": 2,
+      "windSpeedMs": 55.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Natore",
+      "division": "Rajshahi",
+      "zone": 2,
+      "windSpeedMs": 55.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Pabna",
+      "division": "Rajshahi",
+      "zone": 2,
+      "windSpeedMs": 63.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Rajshahi",
+      "division": "Rajshahi",
+      "zone": 2,
+      "windSpeedMs": 49.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Sirajganj",
+      "division": "Rajshahi",
+      "zone": 3,
+      "windSpeedMs": 50.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Dinajpur",
+      "division": "Rangpur",
+      "zone": 2,
+      "windSpeedMs": 41.4,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Gaibandha",
+      "division": "Rangpur",
+      "zone": 3,
+      "windSpeedMs": 65.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Kurigram",
+      "division": "Rangpur",
+      "zone": 4,
+      "windSpeedMs": 65.6,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Lalmonirhat",
+      "division": "Rangpur",
+      "zone": 3,
+      "windSpeedMs": 63.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Nilphamari",
+      "division": "Rangpur",
+      "zone": 2,
+      "windSpeedMs": 44.7,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Panchagarh",
+      "division": "Rangpur",
+      "zone": 2,
+      "windSpeedMs": 41.4,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Rangpur",
+      "division": "Rangpur",
+      "zone": 3,
+      "windSpeedMs": 65.3,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Thakurgaon",
+      "division": "Rangpur",
+      "zone": 2,
+      "windSpeedMs": 41.4,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Habiganj",
+      "division": "Sylhet",
+      "zone": 4,
+      "windSpeedMs": 54.2,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Moulvibazar",
+      "division": "Sylhet",
+      "zone": 4,
+      "windSpeedMs": 53.0,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Sunamganj",
+      "division": "Sylhet",
+      "zone": 4,
+      "windSpeedMs": 61.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    },
+    {
+      "district": "Sylhet",
+      "division": "Sylhet",
+      "zone": 4,
+      "windSpeedMs": 61.1,
+      "clause": "Table 6.2.15 & Table 6.2.8"
+    }
+  ],
+  "siteClasses": [
+    {
+      "code": "SA",
+      "description": "Rock or other rock-like geological formation (Vs30 > 800 m/s)",
+      "S": 1.0,
+      "TB": 0.15,
+      "TC": 0.4,
+      "TD": 2.0,
+      "clause": "BNBC 2020 Table 6.2.16"
+    },
+    {
+      "code": "SB",
+      "description": "Deposits of very dense sand, gravel, or very stiff clay (360 < Vs30 <= 800 m/s)",
+      "S": 1.2,
+      "TB": 0.15,
+      "TC": 0.5,
+      "TD": 2.0,
+      "clause": "BNBC 2020 Table 6.2.16"
+    },
+    {
+      "code": "SC",
+      "description": "Deep deposits of dense or medium-dense sand, gravel or stiff clay (180 <= Vs30 <= 360 m/s)",
+      "S": 1.15,
+      "TB": 0.2,
+      "TC": 0.6,
+      "TD": 2.0,
+      "clause": "BNBC 2020 Table 6.2.16"
+    },
+    {
+      "code": "SD",
+      "description": "Deposits of loose-to-medium cohesionless soil or soft-to-firm cohesive soil (Vs30 < 180 m/s)",
+      "S": 1.35,
+      "TB": 0.2,
+      "TC": 0.8,
+      "TD": 2.0,
+      "clause": "BNBC 2020 Table 6.2.16"
+    },
+    {
+      "code": "SE",
+      "description": "Soil profile consisting of a surface alluvium layer with Vs30 < 180 m/s and thickness 5m to 20m",
+      "S": 1.4,
+      "TB": 0.15,
+      "TC": 0.5,
+      "TD": 2.0,
+      "clause": "BNBC 2020 Table 6.2.16"
+    },
+    {
+      "code": "S1",
+      "description": "Deposits containing at least 10m thick soft/high-plasticity clays (requires site-specific study)",
+      "S": 0.0,
+      "TB": 0.0,
+      "TC": 0.0,
+      "TD": 0.0,
+      "requiresSiteSpecificStudy": true,
+      "clause": "BNBC 2020 Table 6.2.13 & Sec 2.5.4.2"
+    },
+    {
+      "code": "S2",
+      "description": "Deposits of liquefiable soils, sensitive clays, or weak cemented soils (requires site-specific study)",
+      "S": 0.0,
+      "TB": 0.0,
+      "TC": 0.0,
+      "TD": 0.0,
+      "requiresSiteSpecificStudy": true,
+      "clause": "BNBC 2020 Table 6.2.13 & Sec 2.5.4.2"
+    }
+  ],
+  "occupancyCategories": [
+    {
+      "category": "I",
+      "description": "Agricultural, temporary, or minor storage facilities",
+      "I_seismic": 1.0,
+      "I_wind": 0.77,
+      "clause": "Table 6.1.1, Table 6.2.17, Table 6.2.9"
+    },
+    {
+      "category": "II",
+      "description": "Standard residential, office, commercial, and normal occupancy buildings",
+      "I_seismic": 1.0,
+      "I_wind": 1.0,
+      "clause": "Table 6.1.1, Table 6.2.17, Table 6.2.9"
+    },
+    {
+      "category": "III",
+      "description": "Buildings with substantial hazard to human life (schools, assembly > 300)",
+      "I_seismic": 1.25,
+      "I_wind": 1.15,
+      "clause": "Table 6.1.1, Table 6.2.17, Table 6.2.9"
+    },
+    {
+      "category": "IV",
+      "description": "Essential facilities (hospitals, fire/police stations, emergency shelters)",
+      "I_seismic": 1.5,
+      "I_wind": 1.15,
+      "clause": "Table 6.1.1, Table 6.2.17, Table 6.2.9"
+    }
+  ],
+  "structuralSystems": [
+    {
+      "code": "IMRF_RC",
+      "name": "Intermediate Reinforced Concrete Moment Frame (IMRF)",
+      "R": 5.0,
+      "Omega0": 3.0,
+      "Cd": 4.5,
+      "Ct": 0.0466,
+      "m": 0.9,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    },
+    {
+      "code": "SMRF_RC",
+      "name": "Special Reinforced Concrete Moment Frame (SMRF)",
+      "R": 8.0,
+      "Omega0": 3.0,
+      "Cd": 5.5,
+      "Ct": 0.0466,
+      "m": 0.9,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    },
+    {
+      "code": "OMRF_RC",
+      "name": "Ordinary Reinforced Concrete Moment Frame (OMRF - Zone 1 Only)",
+      "R": 3.0,
+      "Omega0": 3.0,
+      "Cd": 2.5,
+      "Ct": 0.0466,
+      "m": 0.9,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    },
+    {
+      "code": "DUAL_SMRF_SW",
+      "name": "Dual System: Special RC Moment Frame + Special RC Shear Walls",
+      "R": 7.0,
+      "Omega0": 2.5,
+      "Cd": 5.5,
+      "Ct": 0.0488,
+      "m": 0.75,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    },
+    {
+      "code": "DUAL_IMRF_SW",
+      "name": "Dual System: Intermediate RC Moment Frame + Ordinary RC Shear Walls",
+      "R": 5.5,
+      "Omega0": 2.5,
+      "Cd": 4.5,
+      "Ct": 0.0488,
+      "m": 0.75,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    },
+    {
+      "code": "BWS_RC_SW",
+      "name": "Building Frame System: Special Reinforced Concrete Shear Walls",
+      "R": 6.0,
+      "Omega0": 2.5,
+      "Cd": 5.0,
+      "Ct": 0.0488,
+      "m": 0.75,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    },
+    {
+      "code": "SMRF_STEEL",
+      "name": "Special Steel Moment Frame (SMRF)",
+      "R": 8.0,
+      "Omega0": 3.0,
+      "Cd": 5.5,
+      "Ct": 0.0724,
+      "m": 0.8,
+      "clause": "Table 6.2.19 & Table 6.2.20"
+    }
+  ],
+  "unitWeights": [
+    {
+      "material": "Reinforced Concrete (Normal Weight)",
+      "unitWeightKnM3": 24.0,
+      "clause": "BNBC 2020 Table 6.2.1"
+    },
+    {
+      "material": "Plain Cement Concrete (PCC)",
+      "unitWeightKnM3": 23.0,
+      "clause": "BNBC 2020 Table 6.2.1"
+    },
+    {
+      "material": "Clay Brick Masonry (Common Burnt Clay)",
+      "unitWeightKnM3": 19.2,
+      "clause": "BNBC 2020 Table 6.2.1"
+    },
+    {
+      "material": "Cement Plaster / Mortar Screed",
+      "unitWeightKnM3": 20.4,
+      "clause": "BNBC 2020 Table 6.2.1"
+    },
+    {
+      "material": "Autoclaved Aerated Concrete (AAC) Block",
+      "unitWeightKnM3": 7.5,
+      "clause": "BNBC 2020 Table 6.2.1"
+    },
+    {
+      "material": "Structural Steel",
+      "unitWeightKnM3": 77.0,
+      "clause": "BNBC 2020 Table 6.2.1"
+    },
+    {
+      "material": "Water",
+      "unitWeightKnM3": 9.81,
+      "clause": "BNBC 2020 Table 6.2.1"
+    }
+  ],
+  "liveLoads": [
+    {
+      "occupancy": "Residential - Private Rooms & Bedrooms",
+      "uniformKnM2": 2.0,
+      "concentratedKn": 0.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Residential - Corridors & Stairways (Multi-Family)",
+      "uniformKnM2": 3.0,
+      "concentratedKn": 0.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Residential - Balconies (Exterior)",
+      "uniformKnM2": 3.0,
+      "concentratedKn": 0.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Office - General Office Rooms",
+      "uniformKnM2": 2.5,
+      "concentratedKn": 9.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Office - Lobbies & Ground Floor Corridors",
+      "uniformKnM2": 4.8,
+      "concentratedKn": 9.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Educational - Classrooms",
+      "uniformKnM2": 2.0,
+      "concentratedKn": 4.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Educational - Corridors Above First Floor",
+      "uniformKnM2": 3.8,
+      "concentratedKn": 4.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Hospital - Operating Rooms & Laboratories",
+      "uniformKnM2": 3.0,
+      "concentratedKn": 4.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Hospital - Wards & Private Rooms",
+      "uniformKnM2": 2.0,
+      "concentratedKn": 4.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Retail / Commercial - Ground Floor Stores",
+      "uniformKnM2": 4.8,
+      "concentratedKn": 4.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Retail / Commercial - Upper Floors",
+      "uniformKnM2": 3.6,
+      "concentratedKn": 4.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Assembly - Fixed Seats",
+      "uniformKnM2": 3.0,
+      "concentratedKn": 0.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Assembly - Movable Seats / Public Halls",
+      "uniformKnM2": 4.8,
+      "concentratedKn": 0.0,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Roof - Accessible Flat Roof (General)",
+      "uniformKnM2": 1.5,
+      "concentratedKn": 1.3,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Roof - Inaccessible Flat / Pitched Roof",
+      "uniformKnM2": 1.0,
+      "concentratedKn": 1.3,
+      "clause": "BNBC 2020 Table 6.2.3"
+    },
+    {
+      "occupancy": "Garage - Passenger Vehicles Only",
+      "uniformKnM2": 2.5,
+      "concentratedKn": 13.5,
+      "clause": "BNBC 2020 Table 6.2.3"
+    }
+  ]
+}

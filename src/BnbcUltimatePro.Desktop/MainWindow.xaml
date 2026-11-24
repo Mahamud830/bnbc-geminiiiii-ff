@@ -1,0 +1,358 @@
+<Window x:Class="BnbcUltimatePro.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="BNBC ULTIMATE PRO v2.0 — All 64 Districts, PDF/Excel Export &amp; ETABS 22 Automation"
+        Height="850" Width="1380" MinHeight="720" MinWidth="1120"
+        WindowStartupLocation="CenterScreen"
+        Background="#F1F5F9">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#0F2537" Padding="18,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="BNBC ULTIMATE PRO v2.0" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Text="BNBC 2020 (All 64 Districts) | Direct Frame/Area Load Push | Native PDF &amp; Excel Export" Foreground="#94A3B8" FontSize="12"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="#1E3A5F" CornerRadius="4" Padding="10,5" Margin="0,0,10,0">
+                        <TextBlock x:Name="TxtEtabsBadge" Text="ETABS 22: Checking..." Foreground="#FBBF24" FontWeight="SemiBold" FontSize="12"/>
+                    </Border>
+                    <Button Content="Detect &amp; Connect ETABS 22" Style="{StaticResource AccentActionButton}" Click="BtnConnectEtabs_Click" Margin="0,0,8,0"/>
+                    <Button Content="Recalculate All" Style="{StaticResource PrimaryActionButton}" Click="BtnRecalculateAll_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TabControl Grid.Row="1" Margin="12" Background="White" BorderBrush="#CBD5E1">
+            <!-- TAB 1: Project & 64 Districts Location Setup -->
+            <TabItem Header="1. Project &amp; 64 Districts Setup">
+                <ScrollViewer Padding="16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <GroupBox Header="Project &amp; Building Metadata">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="195"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="34"/>
+                                        <RowDefinition Height="34"/>
+                                        <RowDefinition Height="34"/>
+                                        <RowDefinition Height="34"/>
+                                        <RowDefinition Height="34"/>
+                                        <RowDefinition Height="34"/>
+                                        <RowDefinition Height="34"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Project Name:" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="TxtProjectName" Grid.Row="0" Grid.Column="1" Margin="4" Padding="4"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Project Code:" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="TxtProjectCode" Grid.Row="1" Grid.Column="1" Margin="4" Padding="4"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Structural Engineer:" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="TxtEngineerName" Grid.Row="2" Grid.Column="1" Margin="4" Padding="4"/>
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="District (All 64 Districts):" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="CmbDistrict" Grid.Row="3" Grid.Column="1" Margin="4" IsEditable="True" SelectionChanged="OnProjectInputChanged"/>
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Occupancy Category:" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="CmbOccupancyCategory" Grid.Row="4" Grid.Column="1" Margin="4" SelectionChanged="OnProjectInputChanged"/>
+
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Structural System:" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="CmbStructuralSystem" Grid.Row="5" Grid.Column="1" Margin="4" SelectionChanged="OnProjectInputChanged"/>
+
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="Building Height / Lx / Ly (m):" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="4">
+                                        <TextBox x:Name="TxtHeightM" Width="75" Padding="4" Margin="0,0,6,0"/>
+                                        <TextBox x:Name="TxtDimXM" Width="75" Padding="4" Margin="0,0,6,0"/>
+                                        <TextBox x:Name="TxtDimYM" Width="75" Padding="4"/>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                            <GroupBox Header="Geotechnical Soil Investigation (Mandatory User Input — Never Guessed)">
+                                <StackPanel>
+                                    <TextBlock TextWrapping="Wrap" Foreground="#991B1B" FontWeight="SemiBold" Margin="0,0,0,8"
+                                               Text="BNBC 2020 Rule: Soil Site Class (SA, SB, SC, SD, SE, S1, S2) MUST come from your site-specific geotechnical report. It is never inferred from district."/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="180"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="34"/>
+                                            <RowDefinition Height="34"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Geotechnical Site Class:" VerticalAlignment="Center"/>
+                                        <ComboBox x:Name="CmbSiteClass" Grid.Row="0" Grid.Column="1" Margin="4" SelectionChanged="OnProjectInputChanged"/>
+
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Soil Report Reference:" VerticalAlignment="Center"/>
+                                        <TextBox x:Name="TxtSoilReportRef" Grid.Row="1" Grid.Column="1" Margin="4" Padding="4"/>
+
+                                        <TextBlock x:Name="TxtSiteClassDetails" Grid.Row="2" Grid.ColumnSpan="2" Margin="4,8,4,0" TextWrapping="Wrap" Foreground="#334155"/>
+                                    </Grid>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="Quick Sample &amp; Automation Presets">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Load 7-Story Barishal Sample Project" Style="{StaticResource PrimaryActionButton}" Click="BtnLoadSample_Click" Margin="0,0,10,0"/>
+                                    <Button Content="Validate Inputs" Style="{StaticResource AccentActionButton}" Click="BtnRecalculateAll_Click"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- TAB 2: Seismic & Wind Hazard -->
+            <TabItem Header="2. Seismic &amp; Wind Hazard">
+                <Grid Margin="14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Column="0" Header="BNBC 2020 Section 2.5 — Seismic Hazard &amp; Equivalent Static Force" Margin="0,0,8,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBox x:Name="TxtSeismicSummary" Grid.Row="0" IsReadOnly="True" TextWrapping="Wrap" Background="#F8FAFC" BorderThickness="1" BorderBrush="#CBD5E1" Padding="8" Height="165" FontFamily="Consolas"/>
+                            <DataGrid x:Name="GridSeismicForces" Grid.Row="1" AutoGenerateColumns="True" IsReadOnly="True" Margin="0,10,0,0"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="1" Header="BNBC 2020 Section 2.4 — Wind Hazard &amp; Story Wind Loads" Margin="8,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                                <TextBlock Text="Exposure Category:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                <ComboBox x:Name="CmbWindExposure" Width="110" Margin="0,0,12,0" SelectionChanged="OnProjectInputChanged"/>
+                                <TextBlock Text="Kzt:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                <TextBox x:Name="TxtKzt" Width="55" Text="1.0" Padding="3" Margin="0,0,10,0"/>
+                                <TextBlock Text="Kd:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                <TextBox x:Name="TxtKd" Width="55" Text="0.85" Padding="3"/>
+                            </StackPanel>
+                            <TextBox x:Name="TxtWindSummary" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap" Background="#F8FAFC" BorderThickness="1" BorderBrush="#CBD5E1" Padding="8" Height="130" FontFamily="Consolas"/>
+                            <DataGrid x:Name="GridWindForces" Grid.Row="2" AutoGenerateColumns="True" IsReadOnly="True" Margin="0,10,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 3: Gravity Loads, Occupancy & Wall Load Generator -->
+            <TabItem Header="3. Gravity, Occupancy &amp; Wall Loads">
+                <Grid Margin="14">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox Grid.Column="0" Header="Floor Dead Load Calculator (BNBC Table 6.2.1)" Margin="0,0,8,10">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="Slab (mm):" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtSlabMm" Width="60" Text="150" Padding="3" Margin="0,0,10,0"/>
+                                    <TextBlock Text="FF (kN/m²):" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtFloorFinish" Width="60" Text="1.20" Padding="3" Margin="0,0,10,0"/>
+                                    <TextBlock Text="PW (kN/m²):" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtPartition" Width="60" Text="1.00" Padding="3" Margin="0,0,10,0"/>
+                                    <Button Content="Compute DL" Style="{StaticResource PrimaryActionButton}" Padding="8,4" Click="BtnComputeDeadLoad_Click"/>
+                                </StackPanel>
+                                <TextBlock x:Name="TxtDeadLoadResult" FontWeight="SemiBold" Foreground="#0F2537"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Grid.Column="1" Header="Masonry Partition Wall Line Load Generator" Margin="8,0,0,10">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <TextBlock Text="Story H (m):" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtWallStoryH" Width="50" Text="3.0" Padding="3" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Beam D (m):" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtBeamDepth" Width="50" Text="0.45" Padding="3" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Wall (mm):" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtWallMm" Width="55" Text="125" Padding="3" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Open %:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtOpeningPct" Width="45" Text="15" Padding="3" Margin="0,0,8,0"/>
+                                    <Button Content="Compute Wall" Style="{StaticResource PrimaryActionButton}" Padding="8,4" Click="BtnComputeWallLoad_Click"/>
+                                </StackPanel>
+                                <TextBlock x:Name="TxtWallLoadResult" FontWeight="SemiBold" Foreground="#0F2537"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+
+                    <GroupBox Grid.Row="1" Header="Floor-Wise Occupancy Management &amp; Seismic Weight Table (BNBC Table 6.2.3)">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                                <Button Content="+ Add Story" Style="{StaticResource PrimaryActionButton}" Padding="10,4" Click="BtnAddStory_Click" Margin="0,0,8,0"/>
+                                <Button Content="Apply Occupancy Live Loads" Style="{StaticResource AccentActionButton}" Padding="10,4" Click="BtnRecalculateAll_Click"/>
+                            </StackPanel>
+                            <DataGrid x:Name="GridStories" Grid.Row="1" AutoGenerateColumns="True" CanUserAddRows="False"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 4: Load Combinations -->
+            <TabItem Header="4. Load Combinations (BNBC Sec 2.7)">
+                <Grid Margin="14">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                        <CheckBox x:Name="ChkVerticalSeismic" Content="Include Vertical Seismic Ev = 0.5*ah*D (Sec 2.5.5.2)" IsChecked="True" VerticalAlignment="Center" Margin="0,0,16,0" Checked="OnProjectInputChanged" Unchecked="OnProjectInputChanged"/>
+                        <CheckBox x:Name="ChkServiceCombos" Content="Include Serviceability (ASD) Combinations" IsChecked="True" VerticalAlignment="Center" Margin="0,0,16,0" Checked="OnProjectInputChanged" Unchecked="OnProjectInputChanged"/>
+                        <Button Content="Regenerate Combinations" Style="{StaticResource PrimaryActionButton}" Padding="10,5" Click="BtnRecalculateAll_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="GridCombos" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Combination Name" Binding="{Binding Name}" Width="260"/>
+                            <DataGridTextColumn Header="Design Type" Binding="{Binding DesignType}" Width="160"/>
+                            <DataGridTextColumn Header="BNBC 2020 Clause" Binding="{Binding ClauseReference}" Width="260"/>
+                            <DataGridTextColumn Header="Factors Summary" Binding="{Binding FactorsSummary}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 5: ETABS 22 Automation, Direct Frame/Area Loads & Reactions -->
+            <TabItem Header="5. ETABS 22 Automation &amp; Reactions">
+                <Grid Margin="14">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.15*"/>
+                        <ColumnDefinition Width="0.85*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <GroupBox Header="ETABS 22 Runtime Connection &amp; Model Inspector">
+                            <StackPanel>
+                                <TextBox x:Name="TxtEtabsDiagnostics" IsReadOnly="True" TextWrapping="Wrap" Height="88" Background="#F8FAFC" Padding="6" FontFamily="Consolas"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <Button Content="1. Detect ETABS 22" Style="{StaticResource PrimaryActionButton}" Padding="10,5" Click="BtnDetectEtabs_Click" Margin="0,0,8,0"/>
+                                    <Button Content="2. Connect Active Model" Style="{StaticResource AccentActionButton}" Padding="10,5" Click="BtnConnectEtabs_Click" Margin="0,0,8,0"/>
+                                    <Button Content="3. Read Model Snapshot" Style="{StaticResource PrimaryActionButton}" Padding="10,5" Click="BtnReadSnapshot_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Direct Beam Wall Load &amp; Slab Area Load Assignment (Optional)">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                    <CheckBox x:Name="ChkAssignFrameWall" Content="Assign Wall Line Load (kN/m):" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBox x:Name="TxtEtabsWallLoad" Width="55" Text="8.45" Padding="3" Margin="0,0,8,0"/>
+                                    <TextBlock Text="ETABS Beam Group:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtEtabsBeamGroup" Width="95" Text="ALL" Padding="3"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="ChkAssignAreaSlab" Content="Assign Slab Loads — SDL (kN/m²):" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                                    <TextBox x:Name="TxtEtabsSdlLoad" Width="50" Text="2.45" Padding="3" Margin="0,0,8,0"/>
+                                    <TextBlock Text="LIVE:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtEtabsLiveLoad" Width="50" Text="2.00" Padding="3" Margin="0,0,8,0"/>
+                                    <TextBlock Text="Slab Group:" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <TextBox x:Name="TxtEtabsSlabGroup" Width="75" Text="ALL" Padding="3"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Safe Preview &amp; Push to ETABS 22 (Duplicate-Protected)">
+                            <StackPanel>
+                                <TextBox x:Name="TxtPushPreview" IsReadOnly="True" TextWrapping="Wrap" Height="130" Background="#F8FAFC" Padding="6" FontFamily="Consolas"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <Button Content="Preview Changes" Style="{StaticResource PrimaryActionButton}" Padding="10,5" Click="BtnPreviewPush_Click" Margin="0,0,8,0"/>
+                                    <Button Content="Confirm &amp; Push to ETABS 22" Style="{StaticResource AccentActionButton}" Padding="10,5" Click="BtnExecutePush_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+
+                    <GroupBox Grid.Column="1" Header="Foundation Reaction Extractor &amp; Excel Export" Margin="8,0,0,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                                <Button Content="Extract Base Reactions" Style="{StaticResource PrimaryActionButton}" Padding="8,5" Click="BtnExtractReactions_Click" Margin="0,0,6,0"/>
+                                <Button Content="Load Demo Data" Padding="8,5" Click="BtnDemoReactions_Click" Margin="0,0,6,0"/>
+                                <Button Content="Export Excel (.xlsx)" Style="{StaticResource AccentActionButton}" Padding="8,5" Click="BtnExportExcel_Click"/>
+                            </StackPanel>
+                            <DataGrid x:Name="GridReactions" Grid.Row="1" AutoGenerateColumns="True" IsReadOnly="True"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 6: BNBC 2020 Compliance Checker & Multi-Format Report Generator -->
+            <TabItem Header="6. Compliance, PDF &amp; Excel Reports">
+                <Grid Margin="14">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="230"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Grid.Row="0" Header="BNBC 2020 Automated Compliance Verification (PASS / FAIL / WARNING / NOT_VERIFIED)">
+                        <DataGrid x:Name="GridCompliance" AutoGenerateColumns="True" IsReadOnly="True"/>
+                    </GroupBox>
+
+                    <GroupBox Grid.Row="1" Header="Calculation &amp; Compliance Report Generator (PDF, Excel &amp; Markdown)">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,8">
+                                <Button Content="Generate Preview" Style="{StaticResource PrimaryActionButton}" Padding="10,5" Click="BtnGenerateReport_Click" Margin="0,0,8,0"/>
+                                <Button Content="Export PDF Report (.pdf)" Style="{StaticResource AccentActionButton}" Padding="10,5" Click="BtnExportPdf_Click" Margin="0,0,8,0"/>
+                                <Button Content="Export Excel Workbook (.xlsx)" Style="{StaticResource PrimaryActionButton}" Padding="10,5" Click="BtnExportExcel_Click" Margin="0,0,8,0"/>
+                                <Button Content="Export Markdown (.md)" Padding="10,5" Click="BtnExportReport_Click"/>
+                            </StackPanel>
+                            <TextBox x:Name="TxtReportOutput" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Consolas" Background="#F8FAFC" Padding="8"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Border Grid.Row="2" Background="#E2E8F0" Padding="14,0">
+            <Grid>
+                <TextBlock x:Name="TxtStatusBar" Text="Ready. BNBC 2020 Database (All 64 Districts) Loaded." VerticalAlignment="Center" Foreground="#1E293B" FontSize="12"/>
+                <TextBlock Text="BNBC 2020 Part 6 (64 Districts) | CSI ETABS 22 Runtime API" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#475569" FontSize="12"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
