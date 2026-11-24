@@ -170,25 +170,18 @@ public partial class MainWindow : Window
         if (_lastSeismic.IsValid)
         {
             TxtSeismicSummary.Text =
-                $"District: {project.District} | Zone {_lastSeismic.SeismicZone} (Z = {_lastSeismic.ZoneCoefficientZ:F2})
-" +
-                $"Soil Class: {_lastSeismic.SiteClass} (S = {_lastSeismic.SoilFactorS:F2}, TB = {_lastSeismic.TbSeconds:F2}s, TC = {_lastSeismic.TcSeconds:F2}s)
-" +
-                $"System: {project.StructuralSystemCode} (R = {_lastSeismic.ResponseReductionFactorR:F1}, Omega0 = {_lastSeismic.OverstrengthFactorOmega0:F1}, Cd = {_lastSeismic.DeflectionAmplificationCd:F1})
-" +
-                $"Period Ta = {_lastSeismic.FundamentalPeriodTaSeconds:F4} s | Cs = {_lastSeismic.NormalizedAccelerationCs:F4}
-" +
-                $"Governing Sa = {_lastSeismic.GoverningBaseShearCoeff:F5} (Sa,min = {_lastSeismic.MinimumBaseShearCoeffSaMin:F5})
-" +
-                $"Total Seismic Weight W = {_lastSeismic.TotalSeismicWeightKn:F2} kN
-" +
+                $"District: {project.District} | Zone {_lastSeismic.SeismicZone} (Z = {_lastSeismic.ZoneCoefficientZ:F2})\n" +
+                $"Soil Class: {_lastSeismic.SiteClass} (S = {_lastSeismic.SoilFactorS:F2}, TB = {_lastSeismic.TbSeconds:F2}s, TC = {_lastSeismic.TcSeconds:F2}s)\n" +
+                $"System: {project.StructuralSystemCode} (R = {_lastSeismic.ResponseReductionFactorR:F1}, Omega0 = {_lastSeismic.OverstrengthFactorOmega0:F1}, Cd = {_lastSeismic.DeflectionAmplificationCd:F1})\n" +
+                $"Period Ta = {_lastSeismic.FundamentalPeriodTaSeconds:F4} s | Cs = {_lastSeismic.NormalizedAccelerationCs:F4}\n" +
+                $"Governing Sa = {_lastSeismic.GoverningBaseShearCoeff:F5} (Sa,min = {_lastSeismic.MinimumBaseShearCoeffSaMin:F5})\n" +
+                $"Total Seismic Weight W = {_lastSeismic.TotalSeismicWeightKn:F2} kN\n" +
                 $"DESIGN BASE SHEAR V = {_lastSeismic.DesignBaseShearKn:F2} kN | SDC = {_lastSeismic.SeismicDesignCategory}";
             GridSeismicForces.ItemsSource = _lastSeismic.StoryForces;
         }
         else
         {
-            TxtSeismicSummary.Text = $"VALIDATION ALERT:
-{_lastSeismic.ValidationMessage}";
+            TxtSeismicSummary.Text = $"VALIDATION ALERT:\n{_lastSeismic.ValidationMessage}";
             GridSeismicForces.ItemsSource = null;
         }
 
@@ -196,12 +189,9 @@ public partial class MainWindow : Window
         if (_lastWind.IsValid)
         {
             TxtWindSummary.Text =
-                $"Basic Wind Speed V = {_lastWind.BasicWindSpeedMs:F1} m/s | Exposure {project.WindExposure}
-" +
-                $"Factors: I = {_lastWind.WindImportanceFactorI:F2}, Kd = {_lastWind.DirectionalityFactorKd:F2}, Kzt = {_lastWind.TopographicFactorKzt:F2}, G = {_lastWind.GustFactorG:F2}
-" +
-                $"Roof Velocity Pressure qh = {_lastWind.RoofVelocityPressureQzKnM2:F4} kN/m²
-" +
+                $"Basic Wind Speed V = {_lastWind.BasicWindSpeedMs:F1} m/s | Exposure {project.WindExposure}\n" +
+                $"Factors: I = {_lastWind.WindImportanceFactorI:F2}, Kd = {_lastWind.DirectionalityFactorKd:F2}, Kzt = {_lastWind.TopographicFactorKzt:F2}, G = {_lastWind.GustFactorG:F2}\n" +
+                $"Roof Velocity Pressure qh = {_lastWind.RoofVelocityPressureQzKnM2:F4} kN/m²\n" +
                 $"Total Base Wind Force: Fx = {_lastWind.TotalWindForceXKn:F2} kN | Fy = {_lastWind.TotalWindForceYKn:F2} kN";
             GridWindForces.ItemsSource = _lastWind.StoryWindForces;
         }
@@ -228,14 +218,10 @@ public partial class MainWindow : Window
     {
         var det = _etabsConnector.DetectInstallation();
         TxtEtabsDiagnostics.Text =
-            $"Installed: {det.IsEtabsInstalled}
-" +
-            $"Directory: {(string.IsNullOrEmpty(det.InstallDirectory) ? "Not Found" : det.InstallDirectory)}
-" +
-            $"API DLL: {(string.IsNullOrEmpty(det.ApiDllPath) ? "Not Found" : det.ApiDllPath)}
-" +
-            $"Version: {det.DetectedVersion}
-" +
+            $"Installed: {det.IsEtabsInstalled}\n" +
+            $"Directory: {(string.IsNullOrEmpty(det.InstallDirectory) ? "Not Found" : det.InstallDirectory)}\n" +
+            $"API DLL: {(string.IsNullOrEmpty(det.ApiDllPath) ? "Not Found" : det.ApiDllPath)}\n" +
+            $"Version: {det.DetectedVersion}\n" +
             $"Status: {det.DiagnosticMessage}";
 
         TxtEtabsBadge.Text = det.IsEtabsInstalled
@@ -299,10 +285,7 @@ public partial class MainWindow : Window
     {
         var (success, msg) = _etabsConnector.ConnectToActiveInstance();
         RunEtabsDetection();
-        TxtEtabsDiagnostics.Text += $"
-
-Connection Attempt:
-{msg}";
+        TxtEtabsDiagnostics.Text += $"\n\nConnection Attempt:\n{msg}";
         MessageBox.Show(msg, success ? "ETABS 22 Connected" : "ETABS 22 Connection Notice", MessageBoxButton.OK,
             success ? MessageBoxImage.Information : MessageBoxImage.Warning);
         RecalculateAll();
@@ -320,14 +303,10 @@ Connection Attempt:
         {
             var snap = _etabsConnector.ReadModelSnapshot();
             TxtEtabsDiagnostics.Text =
-                $"Model File: {snap.ModelFilePath}
-" +
-                $"Units: {snap.PresentUnits} | Stories: {snap.StoryNames.Count}
-" +
-                $"Frames: {snap.FrameCount} | Areas: {snap.AreaCount} | Points: {snap.PointCount}
-" +
-                $"Existing Patterns ({snap.ExistingLoadPatterns.Count}): {string.Join(", ", snap.ExistingLoadPatterns)}
-" +
+                $"Model File: {snap.ModelFilePath}\n" +
+                $"Units: {snap.PresentUnits} | Stories: {snap.StoryNames.Count}\n" +
+                $"Frames: {snap.FrameCount} | Areas: {snap.AreaCount} | Points: {snap.PointCount}\n" +
+                $"Existing Patterns ({snap.ExistingLoadPatterns.Count}): {string.Join(", ", snap.ExistingLoadPatterns)}\n" +
                 $"Existing Combos ({snap.ExistingLoadCombos.Count}): {string.Join(", ", snap.ExistingLoadCombos)}";
         }
         catch (Exception ex)
@@ -344,20 +323,11 @@ Connection Attempt:
         var preview = _etabsConnector.BuildPushPreview(project, _lastCombos, snapshot, elemLoads);
 
         TxtPushPreview.Text =
-            $"NEW LOAD PATTERNS TO CREATE ({preview.LoadPatternsToCreate.Count}):
-  {string.Join(", ", preview.LoadPatternsToCreate)}
-" +
-            $"EXISTING PATTERNS SKIPPED ({preview.LoadPatternsSkippedExisting.Count}):
-  {string.Join(", ", preview.LoadPatternsSkippedExisting)}
-" +
-            $"MASS SOURCE:
-  {preview.MassSourceAction}
-" +
-            $"ELEMENT LOAD ASSIGNMENT:
-  {preview.ElementLoadAssignmentAction}
-" +
-            $"NEW COMBINATIONS TO CREATE ({preview.LoadCombinationsToCreate.Count}):
-  {string.Join(", ", preview.LoadCombinationsToCreate.Take(6))} ...";
+            $"NEW LOAD PATTERNS TO CREATE ({preview.LoadPatternsToCreate.Count}):\n  {string.Join(", ", preview.LoadPatternsToCreate)}\n" +
+            $"EXISTING PATTERNS SKIPPED ({preview.LoadPatternsSkippedExisting.Count}):\n  {string.Join(", ", preview.LoadPatternsSkippedExisting)}\n" +
+            $"MASS SOURCE:\n  {preview.MassSourceAction}\n" +
+            $"ELEMENT LOAD ASSIGNMENT:\n  {preview.ElementLoadAssignmentAction}\n" +
+            $"NEW COMBINATIONS TO CREATE ({preview.LoadCombinationsToCreate.Count}):\n  {string.Join(", ", preview.LoadCombinationsToCreate.Take(6))} ...";
     }
 
     private void BtnExecutePush_Click(object sender, RoutedEventArgs e)
@@ -369,9 +339,7 @@ Connection Attempt:
         }
 
         var confirm = MessageBox.Show(
-            "This will add BNBC 2020 load patterns, mass source, optional beam/slab loads, and load combinations to your active ETABS 22 model.
-
-Proceed?",
+            "This will add BNBC 2020 load patterns, mass source, optional beam/slab loads, and load combinations to your active ETABS 22 model.\n\nProceed?",
             "Confirm ETABS 22 Model Modification",
             MessageBoxButton.YesNo,
             MessageBoxImage.Question);
@@ -437,8 +405,7 @@ Proceed?",
         if (dlg.ShowDialog() == true)
         {
             _reportGenerator.ExportToPdf(dlg.FileName, project, _lastSeismic, _lastWind, _lastCombos, _lastCompliance, _reactions.ToList());
-            MessageBox.Show($"Branded PDF report saved to:
-{dlg.FileName}", "PDF Exported", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Branded PDF report saved to:\n{dlg.FileName}", "PDF Exported", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -455,8 +422,7 @@ Proceed?",
         if (dlg.ShowDialog() == true)
         {
             _reportGenerator.ExportToXlsx(dlg.FileName, project, _lastSeismic, _lastWind, _lastCombos, _lastCompliance, _reactions.ToList());
-            MessageBox.Show($"Excel workbook (.xlsx) saved to:
-{dlg.FileName}", "Excel Exported", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Excel workbook (.xlsx) saved to:\n{dlg.FileName}", "Excel Exported", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -476,8 +442,7 @@ Proceed?",
         if (dlg.ShowDialog() == true)
         {
             File.WriteAllText(dlg.FileName, TxtReportOutput.Text);
-            MessageBox.Show($"Engineering report saved to:
-{dlg.FileName}", "Report Exported", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"Engineering report saved to:\n{dlg.FileName}", "Report Exported", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
