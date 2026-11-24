@@ -445,8 +445,7 @@ public sealed class BnbcReportGenerator
             byte[] streamBytes = Encoding.ASCII.GetBytes(streamContent);
 
             objects.Add($"{pageObjId} 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents {contentObjId} 0 R >> endobj");
-            objects.Add($"{contentObjId} 0 obj << /Length {streamBytes.Length} >> stream
-{streamContent}endstream endobj");
+            objects.Add($"{contentObjId} 0 obj << /Length {streamBytes.Length} >> stream\n{streamContent}endstream endobj");
         }
 
         using var ms = new MemoryStream();
@@ -456,31 +455,22 @@ public sealed class BnbcReportGenerator
             ms.Write(b, 0, b.Length);
         }
 
-        WriteAscii("%PDF-1.4
-");
+        WriteAscii("%PDF-1.4\n");
         var offsets = new List<long> { 0 };
         foreach (var obj in objects)
         {
             offsets.Add(ms.Position);
-            WriteAscii(obj + "
-");
+            WriteAscii(obj + "\n");
         }
 
         long xrefPos = ms.Position;
-        WriteAscii($"xref
-0 {objects.Count + 1}
-");
-        WriteAscii("0000000000 65535 f 
-");
+        WriteAscii($"xref\n0 {objects.Count + 1}\n");
+        WriteAscii("0000000000 65535 f \n");
         for (int i = 1; i < offsets.Count; i++)
         {
-            WriteAscii($"{offsets[i]:D10} 00000 n 
-");
+            WriteAscii($"{offsets[i]:D10} 00000 n \n");
         }
-        WriteAscii($"trailer << /Size {objects.Count + 1} /Root 1 0 R >>
-startxref
-{xrefPos}
-%%EOF");
+        WriteAscii($"trailer << /Size {objects.Count + 1} /Root 1 0 R >>\nstartxref\n{xrefPos}\n%%EOF");
 
         File.WriteAllBytes(path, ms.ToArray());
     }
@@ -625,7 +615,7 @@ startxref
         {
             int rowNum = r + 1;
             int styleIdx = headerRowIndices.Contains(r) ? 1 : 0;
-            sb.Append($"<row r="{rowNum}">");
+            sb.Append($"<row r=\"{rowNum}\">");
             var row = rows[r];
             for (int c = 0; c < row.Length; c++)
             {
@@ -634,12 +624,12 @@ startxref
                 if (val is int or long or float or double or decimal)
                 {
                     string numStr = Convert.ToDouble(val, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
-                    sb.Append($"<c r="{colRef}" s="{styleIdx}"><v>{numStr}</v></c>");
+                    sb.Append($"<c r=\"{colRef}\" s=\"{styleIdx}\"><v>{numStr}</v></c>");
                 }
                 else
                 {
                     string escaped = SecurityElement.Escape(val.ToString()) ?? string.Empty;
-                    sb.Append($"<c r="{colRef}" t="inlineStr" s="{styleIdx}"><is><t>{escaped}</t></is></c>");
+                    sb.Append($"<c r=\"{colRef}\" t=\"inlineStr\" s=\"{styleIdx}\"><is><t>{escaped}</t></is></c>");
                 }
             }
             sb.AppendLine("</row>");
