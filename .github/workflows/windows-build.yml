@@ -1,0 +1,86 @@
+name: Windows Build & Installer Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: 'Optional GitHub Release tag (e.g. v2.0.0). Leave empty to only build artifacts.'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-package-windows:
+    name: Build, Test & Package Windows Installer
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore NuGet Dependencies
+        run: dotnet restore BnbcUltimatePro.sln
+
+      - name: Build Solution (Release Configuration)
+        run: dotnet build BnbcUltimatePro.sln --configuration Release --no-restore
+
+      - name: Run Automated Unit & Compliance Tests
+        run: dotnet test tests/BnbcUltimatePro.Tests/BnbcUltimatePro.Tests.csproj --configuration Release --no-build --verbosity normal
+
+      - name: Publish Self-Contained Windows x64 Desktop Application
+        run: |
+          dotnet publish src/BnbcUltimatePro.Desktop/BnbcUltimatePro.Desktop.csproj `
+            --configuration Release `
+            --runtime win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=false `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            --output publish/win-x64
+
+      - name: Copy Application Icon to Publish Directory
+        shell: pwsh
+        run: |
+          Copy-Item "src/BnbcUltimatePro.Desktop/Assets/app.ico" -Destination "publish/win-x64/app.ico" -Force
+
+      - name: Install Inno Setup Compiler
+        shell: pwsh
+        run: |
+          choco install innosetup -y --no-progress
+
+      - name: Compile Windows Installer
+        shell: pwsh
+        run: |
+          $iscc = "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          & $iscc "installer\BNBC_Ultimate_Pro.iss"
+          if (-not (Test-Path "installer_output\BNBC_Ultimate_Pro_Setup.exe")) {
+            Write-Error "Installer was not produced."
+            exit 1
+          }
+
+      - name: Upload Windows Installer Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BNBC_Ultimate_Pro_Setup_Windows_x64
+          path: installer_output/BNBC_Ultimate_Pro_Setup.exe
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Create GitHub Release
+        if: github.event_name == 'workflow_dispatch' && inputs.release_version != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.release_version }}
+          name: "BNBC ULTIMATE PRO ${{ inputs.release_version }}"
+          files: installer_output/BNBC_Ultimate_Pro_Setup.exe
